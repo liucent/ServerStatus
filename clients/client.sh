@@ -109,6 +109,8 @@ while $RUNNING; do
 		# Remember the total and idle CPU times for the next check.
 		PREV_TOTAL="$TOTAL"
 		PREV_IDLE="$IDLE"
+		# CPU Model Name
+        ModelName=$(awk -F':' '/model name/ {print $2}' /proc/cpuinfo | sed 's/^[ \t]*//g')
 
 		# Network traffic
 		NET=($(grep ":" /proc/net/dev | grep -v -e "lo" -e "tun" | awk '{a+=$2}{b+=$10}END{print a,b}'))
@@ -123,7 +125,7 @@ while $RUNNING; do
 		PREV_NetRx="$NetRx"
 		PREV_NetTx="$NetTx"
 
-		echo -e "update {$Online \"uptime\": $Uptime, \"load\": $Load, \"memory_total\": $MemTotal, \"memory_used\": $MemUsed, \"swap_total\": $SwapTotal, \"swap_used\": $SwapUsed, \"hdd_total\": $HDDTotal, \"hdd_used\": $HDDUsed, \"cpu\": ${DIFF_USAGE}.0, \"network_rx\": $SpeedRx, \"network_tx\": $SpeedTx }"
+		echo -e "update {$Online \"uptime\": $Uptime, \"load\": $Load, \"memory_total\": $MemTotal, \"memory_used\": $MemUsed, \"swap_total\": $SwapTotal, \"swap_used\": $SwapUsed, \"hdd_total\": $HDDTotal, \"hdd_used\": $HDDUsed, \"cpu\": ${DIFF_USAGE}.0, \"network_rx\": $SpeedRx, \"network_tx\": $SpeedTx, \"custom\": \"CPU: $ModelName\" }"
 	done | $NETBIN $SERVER $PORT | while IFS= read -r -d $'\0' x; do
 		if [ ! -f /tmp/fuckbash ]; then
 			if grep -q "IPv6" <<< "$x"; then
