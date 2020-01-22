@@ -1,7 +1,12 @@
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Noto Sans SC', sans-serif;
+    display: flex;
+    flex-direction: column;
     padding-top: 70px;
-    padding-bottom: 30px;
     background: #ebebeb url('../img/background.png');
 }
 
@@ -16,12 +21,20 @@ body {
     box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
 }
 
+main {
+    flex: 1 0 auto;
+    padding-bottom: 25px;
+}
+
 footer {
-    position: fixed;
-    bottom: 0px;
+    height: 50px;
     width: 100%;
     text-align: center;
     border-bottom: 5px #ff0000 solid;
+}
+
+.copyright {
+    padding-top: 15px;
 }
 
 .dropdown .dropdown-toggle {
@@ -37,7 +50,6 @@ footer {
     -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
     -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
     box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
-    margin-bottom: 20px;
 }
 
 .table {
