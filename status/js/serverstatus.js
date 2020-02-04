@@ -236,7 +236,21 @@ function uptime() {
 
                 // Custom
                 if (result.servers[i].custom) {
-                    ExpandRow[0].children["expand_custom"].innerHTML = result.servers[i].custom
+                    if (result.servers[i].custom.NGINX == "active") {
+                        ExpandRow[0].children["expand_custom"].innerHTML = "<button type=\"button\" class=\"btn btn-success btn-xs\">NGINX</button>";
+                    } else {
+                        ExpandRow[0].children["expand_custom"].innerHTML = "<button type=\"button\" class=\"btn btn-danger btn-xs\">NGINX</button>";
+                    }
+                    if (result.servers[i].custom.MYSQL == "active") {
+                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-success btn-xs\">MYSQL</button>";
+                    } else {
+                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">MYSQL</button>";
+                    }
+                    if (result.servers[i].custom.PHPFPM == "active") {
+                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-success btn-xs\">PHP-FPM</button>";
+                    } else {
+                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">PHP-FPM</button>";
+                    }
                 } else {
                     ExpandRow[0].children["expand_custom"].innerHTML = ""
                 }
