@@ -96,6 +96,10 @@ tr.odd.expandRow > :hover {
     border-top: 0px !important;
 }
 
+#expand_custom {
+    padding-bottom: 5px;
+}
+
 #cpu, #ram, #hdd, #network {
     min-width: 55px;
     max-width: 100px;

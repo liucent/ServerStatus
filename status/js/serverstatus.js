@@ -251,12 +251,16 @@ function uptime() {
                     } else {
                         ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">PHP-FPM</button>";
                     }
+                    if (result.servers[i].custom.GUACAMOLE == "active") {
+                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-success btn-xs\">GUACAMOLE</button>";
+                    } else {
+                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">GUACAMOLE</button>";
+                    }
                 } else {
-                    ExpandRow[0].children["expand_custom"].innerHTML = ""
+                    ExpandRow[0].children["expand_custom"].innerHTML = "";
                 }
             }
         }
-        ;
 
         d = new Date(result.updated * 1000);
         error = 0;

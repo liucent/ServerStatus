@@ -129,8 +129,10 @@ while $RUNNING; do
 		NginxStatus=$(service nginx status | awk '/Active/ {print $2}')
 		MysqlStatus=$(service mysql status | awk '/Active/ {print $2}')
 		PhpFpmStatus=$(service php-fpm status | awk '/Active/ {print $2}')
+		GuacamoleStatus=$(service gucad status | awk '/Active/ {print $2}')
 
-		echo -e "update {$Online \"uptime\": $Uptime, \"load\": $Load, \"memory_total\": $MemTotal, \"memory_used\": $MemUsed, \"swap_total\": $SwapTotal, \"swap_used\": $SwapUsed, \"hdd_total\": $HDDTotal, \"hdd_used\": $HDDUsed, \"cpu\": ${DIFF_USAGE}.0, \"network_rx\": $SpeedRx, \"network_tx\": $SpeedTx, \"custom\": \"{\\\"NGINX\\\": \\\"$NginxStatus\\\", \\\"MYSQL\\\": \\\"$MysqlStatus\\\", \\\"PHPFPM\\\": \\\"$PhpFpmStatus\\\"}\" }"
+
+		echo -e "update {$Online \"uptime\": $Uptime, \"load\": $Load, \"memory_total\": $MemTotal, \"memory_used\": $MemUsed, \"swap_total\": $SwapTotal, \"swap_used\": $SwapUsed, \"hdd_total\": $HDDTotal, \"hdd_used\": $HDDUsed, \"cpu\": ${DIFF_USAGE}.0, \"network_rx\": $SpeedRx, \"network_tx\": $SpeedTx, \"custom\": \"{\\\"NGINX\\\": \\\"$NginxStatus\\\", \\\"MYSQL\\\": \\\"$MysqlStatus\\\", \\\"PHPFPM\\\": \\\"$PhpFpmStatus\\\", \\\"GUACAMOLE\\\": \\\"$GuacamoleStatus\\\"}\" }"
 	done | $NETBIN $SERVER $PORT | while IFS= read -r -d $'\0' x; do
 		if [ ! -f /tmp/fuckbash ]; then
 			if grep -q "IPv6" <<< "$x"; then
