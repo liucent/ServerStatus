@@ -1,3 +1,7 @@
+# Update
+
+New UI, location flag and service status. [Live Demo](https://psp.ariesme.com/)
+
 # ServerStatus
 
 ServerStatus is a full rewrite of [mojeda's](https://github.com/mojeda) [ServerStatus](https://github.com/mojeda/ServerStatus) script, which in turn is a modified version of [BlueVM's](http://www.lowendtalk.com/discussion/comment/169690#Comment_169690) script.
