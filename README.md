@@ -1,6 +1,9 @@
 # Update
 
-New UI, location flag and service status. [Live Demo](https://psp.ariesme.com/)
+[Live Demo](https://vss.ariesme.com/)
+1. New UI and location flag
+2. Service status for client.sh
+3. Bandwidth traffic monthly for client.sh
 
 # ServerStatus
 

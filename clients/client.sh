@@ -125,14 +125,29 @@ while $RUNNING; do
 		PREV_NetRx="$NetRx"
 		PREV_NetTx="$NetTx"
 
+		# Bandwidth traffic monthly
+		BandwidthRx="$NetRx"
+		BandwidthTx="$NetTx"
+		if [ "$PREV_BandwidthRx" == "" ]; then
+			PREV_BandwidthRx="$NetRx"
+			PREV_BandwidthTx="$NetTx"
+		fi
+		dHMS=($(date +%d%H%M%S))
+		if [ "$dHMS" == "01000000" ]; then
+			PREV_BandwidthRx="$BandwidthRx"
+			PREV_BandwidthTx="$BandwidthTx"
+		fi
+		let "BandwidthRx-=$PREV_BandwidthRx"
+		let "BandwidthTx-=$PREV_BandwidthTx"
+
 		# Service status
 		NginxStatus=$(service nginx status | awk '/Active/ {print $2}')
 		MysqlStatus=$(service mysql status | awk '/Active/ {print $2}')
 		PhpFpmStatus=$(service php-fpm status | awk '/Active/ {print $2}')
-		GuacamoleStatus=$(service gucad status | awk '/Active/ {print $2}')
+		#GuacamoleStatus=$(service gucad status | awk '/Active/ {print $2}')
 
 
-		echo -e "update {$Online \"uptime\": $Uptime, \"load\": $Load, \"memory_total\": $MemTotal, \"memory_used\": $MemUsed, \"swap_total\": $SwapTotal, \"swap_used\": $SwapUsed, \"hdd_total\": $HDDTotal, \"hdd_used\": $HDDUsed, \"cpu\": ${DIFF_USAGE}.0, \"network_rx\": $SpeedRx, \"network_tx\": $SpeedTx, \"custom\": \"{\\\"NGINX\\\": \\\"$NginxStatus\\\", \\\"MYSQL\\\": \\\"$MysqlStatus\\\", \\\"PHPFPM\\\": \\\"$PhpFpmStatus\\\", \\\"GUACAMOLE\\\": \\\"$GuacamoleStatus\\\"}\" }"
+		echo -e "update {$Online \"uptime\": $Uptime, \"load\": $Load, \"memory_total\": $MemTotal, \"memory_used\": $MemUsed, \"swap_total\": $SwapTotal, \"swap_used\": $SwapUsed, \"hdd_total\": $HDDTotal, \"hdd_used\": $HDDUsed, \"cpu\": ${DIFF_USAGE}.0, \"network_rx\": $SpeedRx, \"network_tx\": $SpeedTx, \"bandwidth_rx\": $BandwidthRx, \"bandwidth_tx\": $BandwidthTx, \"custom\": \"{\\\"NGINX\\\": \\\"$NginxStatus\\\", \\\"MYSQL\\\": \\\"$MysqlStatus\\\", \\\"PHPFPM\\\": \\\"$PhpFpmStatus\\\"}\" }"
 	done | $NETBIN $SERVER $PORT | while IFS= read -r -d $'\0' x; do
 		if [ ! -f /tmp/fuckbash ]; then
 			if grep -q "IPv6" <<< "$x"; then

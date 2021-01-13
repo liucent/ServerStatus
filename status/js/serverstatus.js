@@ -100,6 +100,7 @@ function uptime() {
                     "<td id=\"hdd\"><div class=\"progress progress-striped active\"><div style=\"width: 100%;\" class=\"progress-bar progress-bar-warning\"><small>Loading...</small></div></div></td>" +
                     "</tr>" +
                     "<tr class=\"expandRow " + hack + "\"><td colspan=\"12\"><div class=\"accordian-body collapse\" id=\"rt" + i + "\">" +
+                    "<div id=\"expand_bw\">Loading...</div>" +
                     "<div id=\"expand_mem\">Loading...</div>" +
                     "<div id=\"expand_swap\">Loading...</div>" +
                     "<div id=\"expand_hdd\">Loading...</div>" +
@@ -208,6 +209,10 @@ function uptime() {
                 TableRow.children["cpu"].children[0].children[0].style.width = result.servers[i].cpu + "%";
                 TableRow.children["cpu"].children[0].children[0].innerHTML = result.servers[i].cpu + "%";
 
+
+                // Bandwidth
+                ExpandRow[0].children["expand_bw"].innerHTML = "Bandwidth: " + bytesToSize(result.servers[i].bandwidth_rx, 2) + "|" + bytesToSize(result.servers[i].bandwidth_tx, 2);
+
                 // Memory
                 var Mem = ((result.servers[i].memory_used / result.servers[i].memory_total) * 100.0).toFixed(0);
                 if (Mem >= 90)
@@ -251,11 +256,11 @@ function uptime() {
                     } else {
                         ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">PHP-FPM</button>";
                     }
-                    if (result.servers[i].custom.GUACAMOLE == "active") {
-                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-success btn-xs\">GUACAMOLE</button>";
-                    } else {
-                        ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">GUACAMOLE</button>";
-                    }
+                    // if (result.servers[i].custom.GUACAMOLE == "active") {
+                    //     ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-success btn-xs\">GUACAMOLE</button>";
+                    // } else {
+                    //     ExpandRow[0].children["expand_custom"].innerHTML += " <button type=\"button\" class=\"btn btn-danger btn-xs\">GUACAMOLE</button>";
+                    // }
                 } else {
                     ExpandRow[0].children["expand_custom"].innerHTML = "";
                 }
